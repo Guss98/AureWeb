@@ -1,0 +1,649 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+    /* Colores del tema */
+    --bg-dark: #0a0e14; /* Fondo principal */
+    --bg-dark-medium: #0f131a; /* Fondo de secciones alternas */
+    --card-dark: #161b24; /* Fondo de tarjetas */
+    --text-light: #ffffff;
+    --text-gray: #94a3b8;
+    
+    /* Gradiente Turquesa a Naranja */
+    --gradient-start: #4fd1c5;
+    --gradient-end: #f6ad55;
+    --gradient: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    
+    /* Otros */
+    --border-radius: 16px;
+    --nav-height: 80px;
+}
+
+/* --- Reset y Estilos Base --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+a { text-decoration: none; color: inherit; transition: 0.3s; }
+ul { list-style: none; }
+img { max-width: 100%; display: block; }
+
+/* --- Utilidades --- */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.text-gradient {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+.icon-gradient {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.section { padding: 6rem 0; }
+.bg-dark-medium { background-color: var(--bg-dark-medium); }
+
+.section-header {
+    margin-bottom: 4rem;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.section-header p { color: var(--text-gray); font-size: 1.1rem; }
+
+/* Grids */
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+.grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+
+/* Botones */
+.btn-gradient, .btn-outline {
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-gradient {
+    background: var(--gradient);
+    color: var(--bg-dark);
+    border: none;
+}
+
+.btn-gradient:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px -10px rgba(79, 209, 197, 0.5);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--text-light);
+    border: 2px solid var(--gradient-start);
+    position: relative;
+    z-index: 1;
+}
+
+.btn-outline::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: 50px;
+    background: var(--gradient);
+    z-index: -1;
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.btn-outline:hover { border-color: transparent; color: var(--bg-dark); }
+.btn-outline:hover::before { opacity: 1; }
+
+/* --- Navbar --- */
+.navbar {
+    height: var(--nav-height);
+    display: flex;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    background: rgba(10, 14, 20, 0.9); /* Fondo semi-transparente */
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo { font-size: 1.8rem; font-weight: 700; }
+.nav-links { display: flex; gap: 2.5rem; }
+.nav-links a { font-weight: 500; font-size: 1rem; }
+.nav-links a:hover { color: var(--gradient-start); }
+.hamburger { display: none; font-size: 1.5rem; cursor: pointer; }
+
+/* --- Hero Section --- */
+.hero {
+    padding-top: var(--nav-height);
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    color: var(--text-gray);
+    margin-bottom: 2.5rem;
+    max-width: 600px;
+}
+
+.hero-btns { display: flex; gap: 1.5rem; }
+
+.hero-shape {
+    position: absolute;
+    top: -20%; right: -10%;
+    width: 50%; height: 100%;
+    background: radial-gradient(circle, rgba(79, 209, 197, 0.1) 0%, rgba(10, 14, 20, 0) 70%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* --- Cards (Servicios y Tipos) --- */
+.service-card, .type-card {
+    background: var(--card-dark);
+    padding: 2.5rem;
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: 0.3s;
+}
+
+.service-card:hover, .type-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--gradient-start);
+}
+
+.service-card h3, .type-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+.service-card p, .type-card p {
+    color: var(--text-gray);
+    font-size: 0.95rem;
+}
+
+/* Estilo específico para "Tipos de Sitios" (Borde gradiente) */
+.type-card {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    border: 2px solid transparent; /* Borde transparente base */
+    background-clip: padding-box; /* Para que el gradiente no pise el fondo */
+}
+
+.type-card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    z-index: -1;
+    margin: -2px; /* Mismo ancho que el borde */
+    border-radius: inherit; /* Hereda el border-radius del padre */
+    background: var(--gradient);
+    opacity: 0.3;
+    transition: 0.3s;
+}
+.type-card:hover::before { opacity: 1; }
+
+/* --- Portfolio (Nuestros Trabajos) --- */
+.project-card {
+    background: var(--card-dark);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: 0.3s;
+}
+
+.project-card:hover { transform: translateY(-10px); }
+
+.project-img {
+    position: relative;
+    height: 220px;
+}
+
+.project-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.img-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, transparent 0%, var(--card-dark) 100%);
+    opacity: 0.7;
+}
+
+.project-content { padding: 1.5rem; }
+
+.project-content h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: var(--gradient-start);
+}
+
+.project-content p {
+    color: var(--text-gray);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    height: 3rem; /* Altura fija para alinear */
+    overflow: hidden;
+}
+
+.project-link {
+    color: var(--gradient-end);
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.project-link:hover { gap: 0.8rem; }
+
+/* --- Contacto --- */
+.contact-section {
+    text-align: center;
+    padding-bottom: 4rem;
+}
+
+.contact-subtitle {
+    color: var(--text-gray);
+    margin-bottom: 3rem;
+}
+
+.contact-cards {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 4rem;
+}
+
+.contact-card {
+    background: var(--card-dark);
+    padding: 2.5rem 2rem;
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    flex: 1 1 280px;
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--gradient-start);
+}
+
+.contact-card .icon-wrapper i {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.contact-card h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+.contact-card p, .contact-card a { color: var(--text-gray); font-size: 0.95rem; }
+.contact-card a:hover { color: var(--gradient-start); }
+
+.social-footer h3 { font-size: 1.1rem; margin-bottom: 1.5rem; }
+.social-icons { display: flex; justify-content: center; gap: 1rem; }
+
+.social-btn {
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    background: var(--gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(246, 173, 85, 0.3);
+}
+
+.social-btn i { color: var(--bg-dark); font-size: 1.2rem; }
+.social-btn:hover { transform: scale(1.1) rotate(10deg); }
+
+/* --- Footer Legal --- */
+.legal-footer {
+    background: var(--bg-dark-medium);
+    text-align: center;
+    padding: 1.5rem 0;
+    font-size: 0.85rem;
+    color: var(--text-gray);
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+/* --- Responsive --- */
+@media (max-width: 992px) {
+    .hero h1 { font-size: 2.8rem; }
+    .nav-links, .nav-btn { display: none; }
+    .hamburger { display: block; }
+    
+    .nav-links.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: var(--nav-height);
+        left: 0;
+        width: 100%;
+        background: var(--bg-dark-medium);
+        padding: 2rem;
+        text-align: center;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero { text-align: center; justify-content: center; }
+    .hero-content { margin: 0 auto; }
+    .hero h1 { font-size: 2.2rem; }
+    .hero-btns { justify-content: center; flex-wrap: wrap; }
+    .section-title { font-size: 2rem; }
+    .contact-cards { gap: 1rem; }
+}
+
+/* --- ESTILOS DEL FORMULARIO Y LAYOUT DE CONTACTO --- */
+
+/* Wrapper principal: Grid de 2 columnas */
+.contact-wrapper {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr; /* El formulario ocupa más espacio */
+    gap: 4rem;
+    align-items: start;
+    text-align: left; /* Alineamos texto a la izquierda para el form */
+    margin-top: 3rem;
+}
+
+/* --- Estilos del Formulario --- */
+.form-container {
+    background: var(--card-dark);
+    padding: 2.5rem;
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-light);
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+/* Inputs y Textarea estilo Dark Mode */
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 1rem;
+    background: var(--bg-dark); /* Fondo más oscuro que la tarjeta */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: white;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+/* Efecto Focus (Borde Gradiente) */
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: var(--gradient-start); /* Se pone turquesa al escribir */
+    box-shadow: 0 0 10px rgba(79, 209, 197, 0.2);
+}
+
+.contact-form textarea {
+    resize: vertical; /* Permite estirar solo verticalmente */
+}
+
+.full-width {
+    width: 100%;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+/* --- Estilos de la Columna de Info (Derecha) --- */
+.info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.contact-card-small {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background: var(--card-dark);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: 0.3s;
+}
+
+.contact-card-small:hover {
+    transform: translateX(10px); /* Efecto de movimiento lateral */
+    border-color: var(--gradient-end);
+}
+
+.icon-small {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.icon-small i {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.info-text h4 {
+    font-size: 0.9rem;
+    color: var(--text-gray);
+    margin-bottom: 0.2rem;
+}
+
+.info-text a, .info-text p {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: white;
+}
+
+.info-text a:hover {
+    color: var(--gradient-start);
+}
+
+/* Redes Sociales Pequeñas */
+.social-row {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.social-btn-small {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: 0.3s;
+}
+
+.social-btn-small:hover {
+    background: var(--gradient);
+    color: var(--bg-dark);
+    transform: translateY(-3px);
+}
+
+/* --- Responsive Mobile --- */
+@media (max-width: 768px) {
+    .contact-wrapper {
+        grid-template-columns: 1fr; /* Una sola columna en celular */
+        gap: 3rem;
+    }
+    
+    .contact-section {
+        text-align: center; /* Centrar textos en mobile */
+    }
+    
+    /* Alinear items a la izquierda dentro de las tarjetas en mobile */
+    .contact-card-small {
+        text-align: left; 
+    }
+    
+    .social-row {
+        justify-content: center;
+    }
+}
+
+/* --- NUEVOS ESTILOS PARA REDES SOCIALES --- */
+
+.social-cta h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: white;
+}
+
+.social-cta p {
+    color: var(--text-gray);
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+}
+
+/* Estilo base de las tarjetas sociales */
+.social-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Icono a la izq, flecha a la derecha */
+    background: var(--card-dark);
+    padding: 1.2rem 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 1rem;
+    color: white;
+    font-weight: 600;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+.icon-social {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    margin-right: 1rem;
+}
+
+.arrow-icon {
+    color: var(--text-gray);
+    transition: 0.3s;
+}
+
+/* --- Colores Específicos --- */
+
+/* Instagram */
+.social-card.instagram .icon-social {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); 
+    color: white;
+}
+
+.social-card.instagram:hover {
+    border-color: #cc2366;
+    background: rgba(204, 35, 102, 0.1); /* Fondo rosado muy sutil al pasar el mouse */
+    transform: translateX(5px);
+}
+
+/* Facebook */
+.social-card.facebook .icon-social {
+    background-color: #1877f2;
+    color: white;
+}
+
+.social-card.facebook:hover {
+    border-color: #1877f2;
+    background: rgba(24, 119, 242, 0.1); /* Fondo azul sutil */
+    transform: translateX(5px);
+}
+
+/* Animación de la flechita */
+.social-card:hover .arrow-icon {
+    color: white;
+    transform: translateX(5px);
+}
+
+/* Separación para la tarjeta de ubicación */
+.location-card {
+    margin-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.05); /* Una línea sutil para separar */
+    padding-top: 2rem;
+}
